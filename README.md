@@ -1,2 +1,2 @@
 # dairy-dashboard
-a scalable interface for processing live data streams and displaying cow and herd performance
+a scalable interface for displaying cow and herd performance from live data streams
