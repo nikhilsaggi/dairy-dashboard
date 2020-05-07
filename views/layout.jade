@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='apple-touch-icon', sizes='76x76', href='//assets/img/apple-icon.png')
+    link(rel='icon', type='image/png', href='//assets/img/favicon.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='../assets/img/apple-icon.png')
+    link(rel='icon', type='image/png', href='../assets/img/favicon.png')
+   
+    // Fonts and icons
+    //link(href='https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800', rel='stylesheet')
+    //link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css', rel='stylesheet')
+    // Nucleo Icons
+    //link(href='../assets/css/nucleo-icons.css', rel='stylesheet')
+    // CSS Files
+    // link(href='/stylesheets/black-dashboard.css?v=1.0.0', rel='stylesheet')
+    // CSS Just for demo purpose, don't include it in your project
+    // link(href='../assets/demo/demo.css', rel='stylesheet')
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      div.navbar-header
+        a.navbar-brand(href='#') My Tasks
+    block content
+    script(src='//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js')
+    script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.2/bootstrap.min.js')
