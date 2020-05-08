@@ -1,3 +1,6 @@
 Name,Surname,Age
-Joe,Smith,42
+0,'',0
 Alice,Jones,29
+Alice,Jones,29
+Alice,Jones,0
+'',0.0,0

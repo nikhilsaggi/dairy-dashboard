@@ -26,6 +26,10 @@ const CosmosClient = require('@azure/cosmos').CosmosClient
  app.use(express.static(path.join(__dirname, 'public')))
 
 
+//update the database
+
+
+
 
  //Todo App:
  const cosmosClient = new CosmosClient({
