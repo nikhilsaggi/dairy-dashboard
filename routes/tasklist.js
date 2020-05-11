@@ -10,19 +10,21 @@ const TaskDao = require("../models/TaskDao");
    }
    async showTasks(req, res) {
      const querySpec = {
-       query: "SELECT * FROM root r WHERE r.completed=@completed",
-       parameters: [
-         {
-           name: "@completed",
-           value: false
-         }
-       ]
+       query: "SELECT c.datesql, c.DIM FROM c WHERE c.GroupID ='6'"
      };
 
      const items = await this.taskDao.find(querySpec);
+     console.log(items)
+     const j = {};
+     j.contents = items;
+
+
+
+     
      res.render("index", {
-       title: "My ToDo List ",
-       tasks: items
+       title: "MyToDoList",
+       tasks: JSON.stringify(j),
+
      });
    }
 

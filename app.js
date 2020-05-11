@@ -13,6 +13,8 @@ const CosmosClient = require('@azure/cosmos').CosmosClient
  const app = express()
 
  // view engine setup
+//  app.engine('html', require('ejs').renderFile);
+//  app.set('view engine', 'html');
  app.set('views', path.join(__dirname, 'views'))
  app.set('view engine', 'jade')
 
@@ -50,7 +52,9 @@ const CosmosClient = require('@azure/cosmos').CosmosClient
      process.exit(1)
    })
 
- app.get('/', (req, res, next) => taskList.showTasks(req, res).catch(next))
+ app.get('/', (req, res, next) => {
+  taskList.showTasks(req, res).catch(next)
+})
  app.post('/addtask', (req, res, next) => taskList.addTask(req, res).catch(next))
  app.post('/completetask', (req, res, next) =>
    taskList.completeTask(req, res).catch(next)

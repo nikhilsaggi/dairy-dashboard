@@ -35,13 +35,14 @@ const list = [];
 
     //HI NIKHIL 
     // U CAN JUST REPLACE UR CSV HERE 
-    await fs.createReadStream('13_DA Project_6.csv')
+    await fs.createReadStream('13_DA Project_3.csv')
     .pipe(csv())
     .on('data', (row) => {
       var take = true; 
       var truths = [];
       Object.keys(row).forEach(function(key) {
-        // console.log(row[key]);
+        
+        // console.log(row[key]);:
         if(key== "CowID"||key== "time") {
   
         }else {
@@ -75,21 +76,28 @@ const list = [];
      this.container = coResponse.container
      debug('Setting up the container...done!')
 
+ 
+
+
      var count = 0; 
      //onst itemDefs = JSON.parse(readFileSync("./Shared/Data/Families.json", "utf8")).Families; 
        for(const el of list) {
          const items = {};
          Object.keys(el).forEach(function(key) {
+           var newKey = key.replace(/[^a-zA-Z ]/g, "");
+           newKey = newKey.replace(/ /g,'');
            //console.log()
-           items[key] = el[key];
+           items[newKey] = el[key];
          });
          items.name = "sauce";
            items.count = count
          count++;
-         console.log(count);
-         await this.container.items.create(items);
          
-       }
+       // await this.container.items.create(items);
+         
+      }
+      console.log('DONE');
+
    }
 
    async find(querySpec) {
@@ -116,22 +124,6 @@ const list = [];
       return doc
    }
 
-  //  function readStream(stream, encoding = "utf8") {
-  //     return new Promise((resolve, reject) => {
-  //         let data = "";
-  //         fs.createReadStream('data.csv')
-  //         .pipe(csv())
-  //         .on('data', (row) => {
-  //           console.log(row);
-  //           //item.FirstName = row.Name;
-  //           // item.age = row.Age;
-  //         })
-  //         .on('end', () => {
-  //           console.log('CSV file successfully processed');
-  //           console.log(item);
-  //         });
-  //     });
-  //   }
 
    async updateItem(itemId) {
      debug('Update an item in the database')

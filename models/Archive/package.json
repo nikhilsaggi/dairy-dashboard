@@ -1,0 +1,25 @@
+{
+  "name": "dairy-dashboard",
+  "version": "1.0.0",
+  "description": "a scalable interface for displaying cow and herd performance from live data streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhilsaggi/dairy-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhilsaggi/dairy-dashboard/issues"
+  },
+  "homepage": "https://github.com/nikhilsaggi/dairy-dashboard#readme",
+  "dependencies": {
+    "@azure/cosmos": "^3.6.3",
+    "azure-storage": "^2.10.3",
+    "dotenv": "^8.2.0"
+  }
+}
