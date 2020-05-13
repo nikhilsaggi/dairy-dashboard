@@ -3,7 +3,19 @@ extends layout
 block content
   h1 #{title}
   #my_dataviz
-  #line-chart
+  div.section
+    canvas#line-DIM(width='400', height='400')
+    canvas#line-Protein(width='400', height='400')
+    canvas#line-Yieldgr(width='400', height='400')
+    canvas#line-Fat(width='400', height='400')
+    canvas#line-Blood(width='400', height='400')
+
+  div.section
+    canvas#line-DIM(width='400', height='400')
+    canvas#line-Protein(width='400', height='400')
+    canvas#line-Yieldgr(width='400', height='400')
+    canvas#line-Fat(width='400', height='400')
+    canvas#line-Blood(width='400', height='400')
 
     script(src='https://d3js.org/d3.v4.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js')
@@ -13,102 +25,35 @@ block content
         stroke: steelblue;
         stroke-width: 2px;
       }
+    style.
+      .section {
+        display: flex;
+        flex-direction: row;
+      }
     script.
-      g();
-      function g() {
-        console.log('hi');
-        console.log('hi2')
-        var data =   !{tasks};
-        console.log(data)
-        data = data.contents
+      var data =  !{tasks};
+      console.log(data);
+      Object.keys(data).forEach(key => {
+        const id = 'line-' + key
+        graph(key,id);
+      })
 
-        console.log(data)
-        // set the dimensions and margins of the graph
-        var margin = {top: 10, right: 30, bottom: 30, left: 60},
-          width = 1000 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
 
-        // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz")
-          .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")")
 
-        var parseTime = d3.timeParse("%d-%b-%y");
+      //graph()
 
-        var x = d3.scaleLinear().range([0, width]);
-        var y = d3.scaleLinear().range([height, 0]); 
-
-        // define the line
-        var valueline = d3.line()
-            .x(function(d) { return x(Number(d.datesql)); })
-            .y(function(d) { return y(Number(d.DIM)); });
-
-        var count = 0
-        var max = -1;
-        data.forEach(function(d) {
-        console.log(max);
-        console.log(d.DIM);
-            d.datesql = count++;
-            if( Number(d.DIM) >max){
-                max = Number(d.DIM)
-            }
-            d.DIM = Number(d.DIM)
-        });
-        console.log(max)
-        console.log(d3.max(data, function(d) { return Number(d.DIM); }))
-          x.domain(d3.extent(data, function(d) { return d.datesql; }));
-
-          y.domain([0, max]);
-
-     
-            
-            // Add the valueline path.
-          svg.append("path")
-              .data([data])
-              .attr("class", "line")
-              .attr("d", valueline);
-
-          // Add the X Axis
-          svg.append("g")
-              .attr("transform", "translate(0," + height + ")")
-              .call(d3.axisBottom(x));
-
-          // Add the Y Axis
-          svg.append("g")
-              .call(d3.axisLeft(y));
-        //var svg = d3.select("#my_dataviz").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
-          new Chart(document.getElementById("line-chart"), {
+      function graph(key, id) {
+        console.log(data[key].time);
+        console.log(data[key]);
+      
+        new Chart(document.getElementById(id), {
           type: 'line',
           data: {
-            labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+            labels: data[key].time,
             datasets: [{ 
-                data: [86,114,106,106,107,111,133,221,783,2478],
-                label: "Africa",
+                data: data[key][key],
+                label: key,
                 borderColor: "#3e95cd",
-                fill: false
-              }, { 
-                data: [282,350,411,502,635,809,947,1402,3700,5267],
-                label: "Asia",
-                borderColor: "#8e5ea2",
-                fill: false
-              }, { 
-                data: [168,170,178,190,203,276,408,547,675,734],
-                label: "Europe",
-                borderColor: "#3cba9f",
-                fill: false
-              }, { 
-                data: [40,20,10,16,24,38,74,167,508,784],
-                label: "Latin America",
-                borderColor: "#e8c3b9",
-                fill: false
-              }, { 
-                data: [6,3,2,2,7,26,82,172,312,433],
-                label: "North America",
-                borderColor: "#c45850",
                 fill: false
               }
             ]
@@ -116,8 +61,22 @@ block content
           options: {
             title: {
               display: true,
-              text: 'World population per region (in millions)'
-            }
+              text: key
+            },
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: key
+                }
+              }],
+                xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time(date)'
+                }
+              }]
+            } 
           }
         });
 

@@ -8,21 +8,43 @@ const TaskDao = require("../models/TaskDao");
    constructor(taskDao) {
      this.taskDao = taskDao;
    }
+   isValid(item){
+
+     return item != '-1' && item != '0' && item != ''
+   }
+
    async showTasks(req, res) {
      const querySpec = {
-       query: "SELECT c.datesql, c.DIM FROM c WHERE c.GroupID ='6'"
+       query: "SELECT c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datesql  FROM c WHERE c.GroupID ='6'"
      };
 
      const items = await this.taskDao.find(querySpec);
-     console.log(items)
+
+     //Create the arrays for the charts 
      const j = {};
-     j.contents = items;
+     items.forEach(row => {
+      console.log(row)
+      Object.keys(row).forEach(key => {
+        if(this.isValid(row[key]) && key !== 'datesql') {
+
+          if(j[key] == null){
+            j[key] = {};
+            var x = []
+            x.push(row[key])
+            j[key][key] = x
+            j[key].time = [row.datesql]
+          }else{
+            j[key][key].push(row[key])
+            j[key].time.push(row.datesql)
+          }  
+        }
+      })
+     });
 
 
-
-     
+     console.log(j);
      res.render("index", {
-       title: "MyToDoList",
+       title: "Cow Data",
        tasks: JSON.stringify(j),
 
      });
