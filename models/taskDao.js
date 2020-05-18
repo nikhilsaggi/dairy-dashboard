@@ -57,13 +57,12 @@ const list = [];
      
     })
     .on('end', () => {
-      console.log('CSV file successfully processed');
-      console.log(list);
+     // console.log('CSV file successfully processed');
+      //console.log(list);
     });
    }
    async init() {
      debug('Setting up the database...')
-     this.getList();
      const dbResponse = await this.client.databases.createIfNotExists({
        id: this.databaseId
      })
@@ -79,24 +78,24 @@ const list = [];
  
 
 
-     var count = 0; 
-     //onst itemDefs = JSON.parse(readFileSync("./Shared/Data/Families.json", "utf8")).Families; 
-       for(const el of list) {
-         const items = {};
-         Object.keys(el).forEach(function(key) {
-           var newKey = key.replace(/[^a-zA-Z ]/g, "");
-           newKey = newKey.replace(/ /g,'');
-           //console.log()
-           items[newKey] = el[key];
-         });
-         items.name = "sauce";
-           items.count = count
-         count++;
+    //  var count = 0; 
+    //  //onst itemDefs = JSON.parse(readFileSync("./Shared/Data/Families.json", "utf8")).Families; 
+    //    for(const el of list) {
+    //      const items = {};
+    //      Object.keys(el).forEach(function(key) {
+    //        var newKey = key.replace(/[^a-zA-Z ]/g, "");
+    //        newKey = newKey.replace(/ /g,'');
+    //        //console.log()
+    //        items[newKey] = el[key];
+    //      });
+    //      items.name = "sauce";
+    //        items.count = count
+    //      count++;
          
-       // await this.container.items.create(items);
+    //    // await this.container.items.create(items);
          
-      }
-      console.log('DONE');
+    //   }
+    //  // console.log('DONE');
 
    }
 

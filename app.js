@@ -55,7 +55,21 @@ const CosmosClient = require('@azure/cosmos').CosmosClient
  app.get('/', (req, res, next) => {
   taskList.showTasks(req, res).catch(next)
 })
-app.get('/#herd', (req, res, next) => {
+app.get('/herd', (req, res, next) => {
+  res.render('herd', {
+    title: 'Herd',
+    tasks: ['ayesha']
+  });
+})
+
+app.get('/environment', (req, res, next) => {
+  res.render('environment', {
+    title: 'Environment',
+    tasks: ['ayesha']
+  });
+})
+
+app.get('/cowBiometrics', (req, res, next) => {
   res.render('i', {
     title: 'Home',
     tasks: ['ayesha']

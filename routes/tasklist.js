@@ -15,7 +15,7 @@ const TaskDao = require("../models/TaskDao");
 
    async showTasks(req, res) {
      const querySpec = {
-       query: "SELECT c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datesql  FROM c WHERE c.GroupID ='6'"
+       query: "SELECT c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datesql  FROM c WHERE c.AnimalID =  '2714' "
      };
 
      const items = await this.taskDao.find(querySpec);
@@ -26,7 +26,6 @@ const TaskDao = require("../models/TaskDao");
       console.log(row)
       Object.keys(row).forEach(key => {
         if(this.isValid(row[key]) && key !== 'datesql') {
-
           if(j[key] == null){
             j[key] = {};
             var x = []
