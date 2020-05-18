@@ -4,7 +4,7 @@ config.host = process.env.HOST || "https://cowdataacount1.documents.azure.com:44
 config.authKey =
   process.env.AUTH_KEY || "woyDCiuVMS6zF5IkJE6cALTCfFW77qWeFLpR3XOterJPxzCUnJIyueh9WfGaTLyYA7fHJbBv95r6pV7hs8L2Ig==";
 config.databaseId = "ToDoList";
-config.containerId = "1_updated_all";
+config.containerId = "DailyData";
 
 if (config.host.includes("https://localhost:")) {
   console.log("Local environment detected");
