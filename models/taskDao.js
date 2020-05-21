@@ -58,12 +58,10 @@ const list = [];
     })
     .on('end', () => {
       console.log('CSV file successfully processed');
-      console.log(list);
     });
    }
    async init() {
      debug('Setting up the database...')
-     this.getList();
      const dbResponse = await this.client.databases.createIfNotExists({
        id: this.databaseId
      })
@@ -96,7 +94,6 @@ const list = [];
        // await this.container.items.create(items);
          
       }
-      console.log('DONE');
 
    }
 
@@ -111,13 +108,8 @@ const list = [];
 
 
    async addItem(item) {
-      console.log(item);
       debug('Adding an item to the database')
-    
-        item.date = Date.now()
-        item.completed = false
-        item.soda = " me"
-        console.log('hmmm');
+
         const { resource: doc } = await this.container.items.create(item);
         // await Promise.all(itemDefs.map((itemDef: any) => container.items.create(itemDef)));
         console.log("DOC",doc); 

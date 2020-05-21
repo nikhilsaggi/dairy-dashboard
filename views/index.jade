@@ -10,82 +10,29 @@ block content
     canvas#line-Fat(width='200', height='100')
     canvas#line-Blood(width='200', height='100')
 
-  div.section
-    canvas#line-DIM(width='200', height='100')
-    canvas#line-Protein(width='200', height='100')
-    canvas#line-Yieldgr(width='200', height='100')
-    canvas#line-Fat(width='200', height='100')
-    canvas#line-Blood(width='200', height='100')
 
-    script(src='https://d3js.org/d3.v4.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js')
+    script.
+      var data = !{ tasks };
+      
+      console.log(data);
+      data = data[0]
+      Object.keys(data).forEach(key => {
+          const id = 'line-' + key
+          graph(key, id);
+      })
+
+
+
     style(type="text/css").
       .line {
         fill: none;
         stroke: steelblue;
         stroke-width: 2px;
       }
-    style.
       .section {
         display: flex;
-        flex-direction: row;
+        flex-direction: Column;
       }
-    script.
-      var data =  !{tasks};
-      console.log(data);
-      Object.keys(data).forEach(key => {
-        const id = 'line-' + key
-        graph(key,id);
-      })
-
-
-
-      //graph()
-
-      function graph(key, id) {
-        console.log(data[key].time);
-        console.log(data[key]);
-      
-        new Chart(document.getElementById(id), {
-          type: 'line',
-          data: {
-            labels: data[key].time,
-            datasets: [{ 
-                data: data[key][key],
-                label: key,
-                borderColor: "#3e95cd",
-                fill: false
-              }
-            ]
-          },
-          options: {
-            title: {
-              display: true,
-              text: key
-            },
-            scales: {
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: key,
-                },
-                ticks: {
-                    min: 0
-                  }
-              }],
-                xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Time(date)'
-                }
-              }]
-            } 
-          }
-        });
-
-      }
-      
-
 
 
 

@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  div.section
+    canvas#line-DP(width='200', height='100')
+    canvas#line-RH(width='200', height='100')
+    canvas#line-T(width='200', height='100')
+    canvas#line-TH(width='200', height='100')
+    canvas#line(width='200', height='100')
+    co
+    script.
+      var names = ["DP", "RH", "T", "TH"]
+      var data = !{ tasks };
+      
+      console.log(data);
+      data = data[0]
+      var count = 0; 
+  
+      Object.keys(data).forEach(key => {
+          const id = "line-" + names[count]
+          console.log('HI',id)
+          graph(key, id);
+          count ++; 
+      })
