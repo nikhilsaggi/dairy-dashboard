@@ -18,7 +18,7 @@ class TaskList {
   async showEnvData(req, res) {
     var dataList = [];
     const querySpec = {
-      query: "SELECT  TOP 14 c[\"DP TH 3097 C L2\"], c[\"RH TH 3090  L2\"], c[\"T T 0432 C L2\"], c[\"T TH 3091 C L2\"], c.datets FROM c ORDER BY c.datets DESC"
+      query: "SELECT  TOP 14 c[\"DP TH 3097 C L2\"], c[\"RH TH 3090  L2\"], c[\"T T 0432 C L2\"], c[\"T TH 3091 C L2\"], c.datets, c.datestr FROM c ORDER BY c.datets DESC"
     };
     const items = await this.taskDao.find(querySpec);
     console.log(items);
@@ -34,16 +34,16 @@ class TaskList {
       var date = new Date(row.datets * 1000);
       row.dates = date;
       Object.keys(row).forEach(key => {
-        if (this.isValid(row[key]) && key !== 'datets') {
+        if (this.isValid(row[key]) && key !== 'datets' && key !== 'datestr') {
           if (j[key] == null) {
             j[key] = {};
             var x = []
             x.push(row[key])
             j[key][key] = x
-            j[key].time = [row.datets]
+            j[key].time = [row.datestr.substring(0,10)]
           } else {
             j[key][key].push(row[key])
-            j[key].time.push(row.datets)
+            j[key].time.push(row.datestr.substring(0,10))
           }
         }
       })
@@ -59,7 +59,7 @@ class TaskList {
     var dataList = [];
     for (var i = 0; i < ARRAYS.length; i++) {
       const querySpec = {
-        query: "SELECT TOP 14 c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datets  FROM c WHERE c.AnimalID = " + ARRAYS[i] + " ORDER BY c.datets DESC"
+        query: "SELECT TOP 14 c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datets, c.datestr FROM c WHERE c.AnimalID = " + ARRAYS[i] + " ORDER BY c.datets DESC"
         // query: "SELECT c.DIM, c.Protein, c.Yieldgr, c.Fat, c.Blood, c.datets  FROM c WHERE c.AnimalID = ${id} ORDER BY c.datets DESC"
       };
 
@@ -78,17 +78,17 @@ class TaskList {
 
         Object.keys(row).forEach(key => {
 
-          if (this.isValid(row[key]) && key !== 'datets') {
+          if (this.isValid(row[key]) && key !== 'datets' && key !== 'datestr') {
 
             if (j[key] == null) {
               j[key] = {};
               var x = []
               x.push(row[key])
               j[key][key] = x
-              j[key].time = [row.datets]
+              j[key].time = [row.datestr.substring(0,10)]
             } else {
               j[key][key].push(row[key])
-              j[key].time.push(row.datets)
+              j[key].time.push(row.datestr.substring(0,10))
             }
           }
         })
@@ -133,7 +133,7 @@ class TaskList {
     for (var j = 0; j < nameActivity.length; j++) {
       var key = nameActivity[j]
       const querySpec = {
-        query: "SELECT TOP 200 c." + key + ", c.datets FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
+        query: "SELECT TOP 200 c." + key + ", c.datets, c.datestr FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
       };
       console.log(querySpec.query);
       const items = await this.taskDao.find(querySpec);
@@ -141,7 +141,7 @@ class TaskList {
       var times = []
       items.forEach(row => {
         keyValues.push(row[key])
-        times.push(row.datets)
+        times.push(row.datestr.substring(0,10))
       })
       dataList[key] = {}
       dataList[key][key] = keyValues;
@@ -152,7 +152,7 @@ class TaskList {
     for (var j = 0; j < nameSH.length; j++) {
       var key = nameSH[j]
       const querySpec = {
-        query: "SELECT TOP 200 c." + key + ", c.datets FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
+        query: "SELECT TOP 200 c." + key + ", c.datets, c.datestr FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
       };
       console.log(querySpec.query);
       const items = await this.taskDao2.find(querySpec);
@@ -160,7 +160,7 @@ class TaskList {
       var times = []
       items.forEach(row => {
         keyValues.push(row[key])
-        times.push(row.datets)
+        times.push(row.datestr.substring(0,10))
       })
       dataList[key] = {}
       dataList[key][key] = keyValues;
