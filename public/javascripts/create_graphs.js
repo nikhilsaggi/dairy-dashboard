@@ -1,6 +1,6 @@
 
 
-function graph2(key, id) {
+function graph2(key, id, label) {
     var list = []
     console.log(data)
 
@@ -42,7 +42,7 @@ function graph2(key, id) {
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: key,
+                        labelString: label,
                     },
                     ticks: {
                         min: 0
@@ -59,7 +59,7 @@ function graph2(key, id) {
     });
 
 }
-function graph(key, id, timeTable, xTable) {
+function graph(key, id, timeTable, xTable, label) {
 
 
     console.log(timeTable, xTable)
@@ -85,7 +85,7 @@ function graph(key, id, timeTable, xTable) {
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: key,
+                        labelString: label,
                     },
                     ticks: {
                         min: 0

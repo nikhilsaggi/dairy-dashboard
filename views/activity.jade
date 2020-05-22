@@ -13,9 +13,12 @@ block content
 
         script.
             var data = !{ tasks };
+            var labels = ["Activity (steps per hour)", "Rest time (min)", "Weight (grams)", "Total Eating Time (min)", "Total Other Time (min)", "Total Rumination Time (min)"]
             console.log(data);
+            var index = 0;
             Object.keys(data).forEach(key => {
                 const id = 'line-' + key
                 //          graph(row, id, newTables[row].time, newTables[row].key);
-                graph(key, id, data[key].time, data[key][key])
+                graph(key, id, data[key].time, data[key][key], labels[index]);
+                index += 1;
             })

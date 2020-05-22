@@ -13,7 +13,7 @@ block content
     script.
       var names = ["DP", "RH", "T", "TH", "dates"]
       var data = !{ tasks };
-      
+      var labels = ["Dew Point of Pen (*C)", "Proportionate Relative Humidity of Pen", "Black Globe Temperature of Pen (*C)", "Air Temperature of Pen (*C)"]
       
       data = data[0]
       var count = 0; 
@@ -21,6 +21,6 @@ block content
       Object.keys(data).forEach(key => {
           const id = "line-" + names[count]
           console.log('HI',id)
-          if(key != 'dates') graph(key, id, data.dates.time, data[key][key]);
+          if(key != 'dates') graph(key, id, data.dates.time, data[key][key], labels[count]);
           count ++; 
       })

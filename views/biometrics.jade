@@ -11,6 +11,7 @@ block content
     script.
       var data = !{ tasks };
       console.log(data);
+      var labels = ["Physical Activity (AU)", "Low Pass Over Activity (AU)", "Reticulo-rumen temperature (*C)"]
 
       //init 
       var newTables = {}
@@ -31,7 +32,9 @@ block content
       })
       console.log(newTables)
 
+      var index = 0;
       Object.keys(newTables).forEach(row => {
           const id = 'line-' + row
-          graph(row, id, newTables[row].time, newTables[row].key);
+          graph(row, id, newTables[row].time, newTables[row].key, labels[index]);
+          index += 1;
       })

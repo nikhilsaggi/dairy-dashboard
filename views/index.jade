@@ -16,9 +16,13 @@ block content
       console.log(data);
       //data = data
       var list = ['DIM', "Protein", "Yieldgr", "Fat", "Blood"]
+      var labels = ['Days in Milk', "Pct Protein in Milk", "Milk Yield (grams)", "Pct Butterfat in Milk", "Pct Blood in Milk"]
+
+      var index = 0;
       list.forEach(key => {
           const id = 'line-' + key
-          graph2(key, id);
+          graph2(key, id, labels[index]);
+          index += 1;
       })
 
 
