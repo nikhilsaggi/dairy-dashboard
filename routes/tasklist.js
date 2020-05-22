@@ -5,9 +5,11 @@ class TaskList {
    * Handles the various APIs for displaying and managing tasks
    * @param {TaskDao} taskDao
    */
-  constructor(taskDao) {
+  constructor(taskDao, taskDao2) {
     this.taskDao = taskDao;
+    this.taskDao2 = taskDao2;
   }
+
   isValid(item) {
 
     return item != '-1' && item != '0' && item != ''
@@ -103,12 +105,79 @@ class TaskList {
     });
   }
 
-  async showBiometrics(req,res) {
+  async showBiometrics(req, res) {
+    var ARRAYS = ["2714.csv", "26.csv", "86.csv"];
+    var keys = ['animal_activity', 'low_pass_over_activity', 'temp_without_drink_cycles']
+    var dataList = {};
+    for (var i = 0; i < 1; i++) {
+      for (var j = 0; j < keys.length; j++) {
+        const querySpec = {
+          query: "SELECT TOP 200 c.time, c." + keys[j] + " FROM c WHERE c." + keys[j] + " !='' AND c." + keys[j] + "!='0.0' AND c.CowID = '" + ARRAYS[i] + "' ORDER BY c.time DESC"
+        };
+        //console.log(querySpec.query)
+        const items = await this.taskDao.find(querySpec);
+        dataList[keys[j]] = items
+      }
+    }
+    console.log(dataList)
     res.render("biometrics", {
       title: "Biometrics",
       tasks: JSON.stringify(dataList),
     });
   }
+
+  async showActivity(req, res) {
+    var dataList = {};
+    var nameActivity = ['Weightgr', 'RestTimemin', 'Activitystepshr']
+    var nameSH = ['totaleating', 'totalrumination', 'totalother']
+    for (var j = 0; j < nameActivity.length; j++) {
+      var key = nameActivity[j]
+      const querySpec = {
+        query: "SELECT TOP 200 c." + key + ", c.datets FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
+      };
+      console.log(querySpec.query);
+      const items = await this.taskDao.find(querySpec);
+      var keyValues = []
+      var times = []
+      items.forEach(row => {
+        keyValues.push(row[key])
+        times.push(row.datets)
+      })
+      dataList[key] = {}
+      dataList[key][key] = keyValues;
+      dataList[key].times = times;
+
+    }
+    //get data from the SHtable
+    for (var j = 0; j < nameSH.length; j++) {
+      var key = nameSH[j]
+      const querySpec = {
+        query: "SELECT TOP 200 c." + key + ", c.datets FROM c WHERE c." + key + " != 0 ORDER BY c.datets DESC"
+      };
+      console.log(querySpec.query);
+      const items = await this.taskDao2.find(querySpec);
+      var keyValues = []
+      var times = []
+      items.forEach(row => {
+        keyValues.push(row[key])
+        times.push(row.datets)
+      })
+      dataList[key] = {}
+      dataList[key][key] = keyValues;
+      dataList[key].times = times;
+
+    }
+
+    console.log(dataList);
+
+
+    res.render("activity", {
+      title: "Activity",
+      tasks: JSON.stringify(dataList),
+    });
+  }
+
+
 
   async addTask(req, res) {
     const item = req.body;

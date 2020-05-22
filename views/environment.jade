@@ -8,19 +8,19 @@ block content
     canvas#line-RH(width='200', height='100')
     canvas#line-T(width='200', height='100')
     canvas#line-TH(width='200', height='100')
-    canvas#line(width='200', height='100')
+    canvas#line-dates(width='200', height='100')
     co
     script.
-      var names = ["DP", "RH", "T", "TH"]
+      var names = ["DP", "RH", "T", "TH", "dates"]
       var data = !{ tasks };
       
-      console.log(data);
+      
       data = data[0]
       var count = 0; 
-  
+      console.log(data);
       Object.keys(data).forEach(key => {
           const id = "line-" + names[count]
           console.log('HI',id)
-          graph(key, id);
+          if(key != 'dates') graph(key, id, data.dates.time, data[key][key]);
           count ++; 
       })

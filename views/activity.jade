@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1 #{title}
+    #my_dataviz
+    div.section
+        canvas#line-Activitystepshr(width='200' height='100')
+        canvas#line-RestTimemin(width='200' height='100')
+        canvas#line-Weightgr(width='200' height='100')
+        canvas#line-totaleating(width='200' height='100')
+        canvas#line-totalother(width='200' height='100')
+        canvas#line-totalrumination(width='200' height='100')
+
+        script.
+            var data = !{ tasks };
+            console.log(data);
+            Object.keys(data).forEach(key => {
+                const id = 'line-' + key
+                //          graph(row, id, newTables[row].time, newTables[row].key);
+                graph(key, id, data[key].time, data[key][key])
+            })

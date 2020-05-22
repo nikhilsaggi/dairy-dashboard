@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1 #{title}
+  #my_dataviz
+  div.section
+    canvas#line-animal_activity(width='200', height='100')
+    canvas#line-low_pass_over_activity(width='200', height='100')
+    canvas#line-temp_without_drink_cycles(width='200', height='100')
+
+    script.
+      var data = !{ tasks };
+      console.log(data);
+
+      //init 
+      var newTables = {}
+      Object.keys(data).forEach(key => {
+        newTables[key] = {
+          key : [],
+          time: []
+
+        }
+      });
+      console.log(newTables)
+      //fill up arrays
+      Object.keys(data).forEach(key => {
+        data[key].forEach(entry => {
+            newTables[key].key.push(entry[key])
+            newTables[key].time.push(entry.time)
+        })
+      })
+      console.log(newTables)
+
+      Object.keys(newTables).forEach(row => {
+          const id = 'line-' + row
+          graph(row, id, newTables[row].time, newTables[row].key);
+      })

@@ -13,26 +13,14 @@ block content
 
     script.
       var data = !{ tasks };
-      
       console.log(data);
-      data = data[0]
-      Object.keys(data).forEach(key => {
+      //data = data
+      var list = ['DIM', "Protein", "Yieldgr", "Fat", "Blood"]
+      list.forEach(key => {
           const id = 'line-' + key
-          graph(key, id);
+          graph2(key, id);
       })
 
-
-
-    style(type="text/css").
-      .line {
-        fill: none;
-        stroke: steelblue;
-        stroke-width: 2px;
-      }
-      .section {
-        display: flex;
-        flex-direction: Column;
-      }
 
 
 
